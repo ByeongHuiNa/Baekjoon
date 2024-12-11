@@ -1,25 +1,29 @@
+import java.util.*;
+
 class Solution {
     public int solution(int[] arr) {
-        int answer = lcm(arr[0], arr[1]);
+        int answer = 0;
+
+        Arrays.sort(arr);
+        int big = arr[arr.length-1];
+        int index = arr.length-1;
         
-        for(int i = 2; i < arr.length; i++) {
-            answer = lcm(answer, arr[i]);
+        while(true)
+        {
+            boolean check = true;
+
+            for(int i=0; i<index; i++){
+                if(big%arr[i]!=0){
+                    check = false;
+                }
+            }
+            if(check==true)
+            {
+                answer = big;
+                break;
+            }
+            big = big+arr[arr.length-1];
         }
-        
         return answer;
     }
-    
-    // 최대 공약수
-    public int gcd(int a, int b){
-        if(b == 0) {
-            return a;
-        }
-        return gcd(b, a % b);
-    }
-    
-    // 최소 공배수
-    public int lcm(int a, int b) { //유클리드 호제법
-        return (a * b) / gcd(a, b);
-    }
-    
 }
